@@ -24,7 +24,7 @@ def database_initialization():
                 account_holder_name VARCHAR(100) NOT NULL,
                 action VARCHAR(100) NOT NULL,
                 amount DECIMAL(15, 2) default 0.00,
-                timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 )
             """)
             connection.commit()

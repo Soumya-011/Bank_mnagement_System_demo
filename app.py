@@ -84,12 +84,13 @@ def get_monthly_report():
     if connection:
         try:
             cursor = connection.cursor()
-            # Total Deposits this month
-            cursor.execute("SELECT COALESCE(SUM(amount), 0) FROM audit WHERE action ILIKE '%deposit%' AND date_trunc('month', timestamp) = date_trunc('month', CURRENT_DATE)")
+            
+            # FIX: Double the %% in %%deposit%%
+            cursor.execute("SELECT COALESCE(SUM(amount), 0) FROM audit WHERE action ILIKE '%%deposit%%' AND date_trunc('month', timestamp) = date_trunc('month', CURRENT_DATE)")
             report["deposits"] = cursor.fetchone()[0]
             
-            # Total Withdrawals this month
-            cursor.execute("SELECT COALESCE(SUM(amount), 0) FROM audit WHERE action ILIKE '%withdraw%' AND date_trunc('month', timestamp) = date_trunc('month', CURRENT_DATE)")
+            # FIX: Double the %% in %%withdraw%%
+            cursor.execute("SELECT COALESCE(SUM(amount), 0) FROM audit WHERE action ILIKE '%%withdraw%%' AND date_trunc('month', timestamp) = date_trunc('month', CURRENT_DATE)")
             report["withdrawals"] = cursor.fetchone()[0]
             
             # Distinct Active Accounts this month
